@@ -1,7 +1,7 @@
 import express from "express";
 import router from "./routes/admin.js";
 import bodyParser from "body-parser";
-import path from 'path'
+import path from "path";
 import helpers from "./helpers/path.js";
 
 const app = express();
@@ -9,6 +9,7 @@ const app = express();
 const adminRoutes = router;
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(helpers.rootDir, "public")));
 
 app.use("/admin", adminRoutes);
 
@@ -19,7 +20,7 @@ app.get("/", (req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  res.status(404).sendFile(path.join(helpers.rootDir,'views','404.html'))
+  res.status(404).sendFile(path.join(helpers.rootDir, "views", "404.html"));
 });
 
 const expressPort = 3000;
