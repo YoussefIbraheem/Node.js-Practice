@@ -1,16 +1,23 @@
-import express from "express";
-import path from "path"
-import helpers from '../helpers/path.js';
+const path = require('path');
+
+const express = require('express');
+
+const rootDir = require('../util/path');
 
 const router = express.Router();
 
-router.get("/add-product", (req, res, next) => {
-  res.sendFile(path.join(helpers.rootDir,"views","add-product.html"))
+const products = [];
+
+// /admin/add-product => GET
+router.get('/add-product', (req, res, next) => {
+  res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
 });
 
-router.post("/add-product", (req, res, next) => {
-  console.log(req.body);
-  res.redirect("/");
+// /admin/add-product => POST
+router.post('/add-product', (req, res, next) => {
+  products.push({ title: req.body.title });
+  res.redirect('/');
 });
 
-export default router;
+exports.routes = router;
+exports.products = products;
