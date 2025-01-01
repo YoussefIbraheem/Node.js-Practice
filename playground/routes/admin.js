@@ -10,7 +10,11 @@ const products = [];
 
 // /admin/add-product => GET
 router.get("/add-product", (req, res, next) => {
-  res.render("add-product", { path: "/add-product" , pageTitle:"Add Product" });
+  res.render("add-product", { 
+    activeAddProduct: true, //for handlebars
+    productCSS: true, //for handlebars
+    path: "/add-product" , //for Pug, EJS
+    pageTitle:"Add Product" });
 });
 
 // /admin/add-product => POST

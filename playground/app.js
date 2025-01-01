@@ -4,11 +4,19 @@ import bodyParser from "body-parser";
 import adminData from "./routes/admin.js";
 import shopRoutes from "./routes/shop.js";
 import rootDir from "./util/path.js";
-
+import { engine } from "express-handlebars";
 const app = express();
 
-app.set("view engine", "pug");
-app.set("views", "views");
+app.engine(
+  "hbs",
+  engine({
+    layoutsDir: "views/layouts/",
+    defaultLayout: "main",
+    extname: "hbs",
+  })
+);
+app.set("view engine", "hbs");
+app.set("views", "./views");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(rootDir, "public")));
