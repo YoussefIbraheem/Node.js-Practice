@@ -1,14 +1,11 @@
-const path = require("path");
-
-const express = require("express");
-
-const rootDir = require("../util/path");
-const adminData = require("./admin");
+import express from "express";
+import path from "path";
+import { products as adminProducts } from "./admin.js";
 
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
-  res.render("shop", { products: adminData.products , path: '/' , pageTitle: 'Home'});
+  res.render("shop", { products: adminProducts, path: "/", pageTitle: 'Home' });
 });
 
-module.exports = router;
+export default router;

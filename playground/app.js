@@ -1,28 +1,27 @@
-const path = require('path');
-
-const express = require('express');
-const bodyParser = require('body-parser');
+import path from "path";
+import express from "express";
+import bodyParser from "body-parser";
+import adminData from "./routes/admin.js";
+import shopRoutes from "./routes/shop.js";
+import rootDir from "./util/path.js";
 
 const app = express();
 
-const adminData = require('./routes/admin');
-const shopRoutes = require('./routes/shop');
+app.set("view engine", "pug");
+app.set("views", "views");
 
-app.set('view engine', 'pug');
-app.set('views', 'views');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(rootDir, "public")));
 
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/admin', adminData.routes);
+app.use("/admin", adminData);
 app.use(shopRoutes);
 
-app.use((req, res, next) => {
-    res.status(404).render('404',{pageTitle: "Not Found"})
+app.use((req, res) => {
+  res.status(404).render("404", { pageTitle: "Not Found" });
 });
 
 const PORT = 3000;
 
-app.listen(PORT,()=>{
-    console.log(`Server is running on port http://localhost:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port http://localhost:${PORT}`);
 });
