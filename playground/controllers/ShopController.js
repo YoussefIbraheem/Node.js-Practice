@@ -1,9 +1,11 @@
-import { products as adminProducts } from "./AdminController.js";
+import { Product } from "../models/Product.js";
+
 
 export function getProducts(req, res, next) {
+  const prods = Product.fetchAll();
   res.render("shop", {
-    prods: adminProducts,
-    hasProducts: adminProducts.length > 0,
+    prods: prods,
+    hasProducts: prods.length > 0,
     path: "/",
     activeShop: true,
     pageTitle: "Shop",

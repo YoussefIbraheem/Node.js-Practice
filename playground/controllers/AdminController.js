@@ -1,4 +1,4 @@
-const products = [];
+import { Product } from "../models/Product.js";
 
 export function getAddProduct(req, res, next) {
   res.render("add-product", {
@@ -9,11 +9,10 @@ export function getAddProduct(req, res, next) {
   });
 }
 
-export function postAddProduct
-    (req, res, next)  {
-        products.push({ title: req.body.title });
-        res.redirect("/");
-      }
-
-
-export { products };
+export function postAddProduct(req, res, next) {
+  const data = req.body;
+  console.log(data)
+  let newProduct = new Product(data.title,data.price,data.sku);
+  newProduct.save()
+  res.redirect("/");
+}
