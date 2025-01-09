@@ -4,7 +4,7 @@ export function getAddProduct(req, res, next) {
   res.render("add-product", {
     activeAddProduct: true, //for handlebars
     productCSS: true, //for handlebars
-    path: "/add-product", //for Pug, EJS
+    path: "admin/add-product", //for Pug, EJS
     pageTitle: "Add Product",
   });
 }
@@ -14,4 +14,12 @@ export function postAddProduct(req, res, next) {
   let newProduct = new Product(data.title,data.price,data.sku);
   newProduct.save()
   res.redirect("/");
+}
+
+export function getCart(req,res,next){
+  res.render("cart",{
+     path: "admin/cart",
+     prods: [],
+     pageTitle: "Cart",
+  })
 }
