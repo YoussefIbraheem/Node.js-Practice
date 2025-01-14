@@ -1,7 +1,3 @@
-import path from "path";
-import { fileURLToPath } from "url";
+const path = require('path');
 
-const __filename = fileURLToPath(import.meta.url);
-const rootDir = path.dirname(path.dirname(__filename)); // nested dirname to go up two levels
-
-export default rootDir;
+module.exports = path.dirname(process.mainModule.filename);
